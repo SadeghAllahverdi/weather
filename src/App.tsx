@@ -8,28 +8,30 @@ function App() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div className="w-screen h-screen">
+    <div className="w-screen min-h-screen">
       <div
         ref={containerRef}
-        className="w-full h-full 
-          bg-[url(https://images.pexels.com/photos/956999/milky-way-starry-sky-night-sky-star-956999.jpeg)]
-          bg-cover bg-center bg-no-repeat
+        className="w-full min-h-screen 
+          bg-[url(https://ruhrgebiet.de/fileadmin/_processed_/9/4/csm_Duisburg_Metropole_Ruhr_Header_b1e7041a98.jpg)]
+          bg-cover bg-center
           flex flex-col items-center justify-center gap-8 p-8"
       >
+        {/* Search bar component */}
         <SearchBar containerRef={containerRef} />
 
-        <div className="w-full min-h-screen flex flex-col items-center justify-center gap-4">
-          <div className="w-full flex justify-between gap-4">
-            <div className="flex-1 h-84 rounded-2xl">
+        {/* Weather components */}
+        <div className="w-8/10 min-h-screen z-0 flex flex-col items-center justify-center gap-7 mt-30 md:mt-20">
+          <div className="w-full flex flex-col md:flex-row justify-between gap-7">
+            <div className="w-full md:flex-1 h-96 md:h-84 rounded-2xl hover:scale-105 transition duration-500 ease-in-out">
               <CurrentWeather />
             </div>
 
-            <div className="w-2/5 h-84 rounded-2xl">
+            <div className="w-full md:w-2/5 h-64 md:h-84 rounded-2xl hover:scale-105 transition duration-500 ease-in-out">
               <DailyWeather />
             </div>
           </div>
 
-          <div className="w-full h-48 rounded-2xl">
+          <div className="w-full h-64 rounded-2xl hover:scale-105 transition duration-500 ease-in-out">
             <HourlyWeather />
           </div>
         </div>
