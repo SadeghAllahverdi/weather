@@ -4,7 +4,7 @@ interface SearchBarProps {
   containerRef?: React.RefObject<HTMLDivElement | null>;
 }
 
-export default function SearchBar({ containerRef }: SearchBarProps) {
+export default function SearchBar({ containerRef }: Readonly<SearchBarProps>) {
   return (
     <LiquidGlass
       mouseContainer={containerRef}
