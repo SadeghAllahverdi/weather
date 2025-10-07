@@ -1,8 +1,17 @@
-export default function SearchBar() {
+import LiquidGlass from "liquid-glass-react";
+interface SearchBarProps {
+  containerRef?: React.RefObject<HTMLDivElement | null>;
+}
+
+export default function SearchBar({ containerRef }: SearchBarProps) {
   return (
-    <div className="p-6 text-center backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl">
-      <h2 className="text-white text-2xl font-bold">CurrentWeather</h2>
-      <p className="text-white/90">This will have the liquid glass effect</p>
-    </div>
+    <LiquidGlass
+      mouseContainer={containerRef}
+      cornerRadius={20}
+      elasticity={0.7}
+      style={{ position: "fixed", top: "5%", left: "50%" }}
+    >
+      <div className="px-8 py-4 text-white text-lg">Search bar content</div>
+    </LiquidGlass>
   );
 }
