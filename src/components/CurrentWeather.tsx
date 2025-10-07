@@ -1,8 +1,16 @@
+import { LiquidGlass as NomalGlass } from "@liquidglass/react";
+
 export default function CurrentWeather() {
   return (
-    <div className="p-6 text-center backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl">
-      <h2 className="text-white text-2xl font-bold">CurrentWeather</h2>
-      <p className="text-white/90">This will have the liquid glass effect</p>
-    </div>
+    <NomalGlass
+      borderRadius={20}
+      blur={2}
+      contrast={1.15}
+      brightness={2}
+      saturation={1.1}
+      elasticity={0.3}
+    >
+      <div className="px-8 py-4 text-white text-lg">Current weather info</div>
+    </NomalGlass>
   );
 }
