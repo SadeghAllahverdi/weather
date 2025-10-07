@@ -6,7 +6,7 @@ export default function CurrentWeather() {
       borderRadius={20}
       blur={2}
       contrast={1.15}
-      brightness={2}
+      brightness={1}
       saturation={1.1}
       elasticity={0.3}
     >
