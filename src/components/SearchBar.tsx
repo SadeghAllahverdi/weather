@@ -20,7 +20,7 @@ export default function SearchBar({ containerRef }: Readonly<SearchBarProps>) {
         <Search className="w-5 h-5" />
       </button>
       <input
-        className="pl-10 pr-4 py-2 text-black text-lg rounded-md focus:outline-none"
+        className="pl-10 pr-4 text-black text-lg rounded-md focus:outline-none"
         type="text"
         placeholder="Search City"
       />
