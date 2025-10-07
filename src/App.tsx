@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="w-screen h-screen">
       <div
-        className="w-full h-full 
+        className="w-full h-full
                       bg-[url(https://images.pexels.com/photos/956999/milky-way-starry-sky-night-sky-star-956999.jpeg?_gl=1*1r4qe7s*_ga*MTQyOTQzODc5NS4xNzU5Nzc3NTE2*_ga_8JE65Q40S6*czE3NTk4Mjg0MTckbzIkZzEkdDE3NTk4Mjg1MTYkajQyJGwwJGgw)] 
                       bg-cover bg-center bg-no-repeat
                       flex flex-col items-center justify-center gap-8 p-8"
