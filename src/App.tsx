@@ -1,38 +1,41 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useRef } from "react";
+import SearchBar from "./components/SearchBar";
+import CurrentWeather from "./components/CurrentWeather";
+import DailyWeather from "./components/DailyWeather";
+import HourlyWeather from "./components/HourlyWeather";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const containerRef = useRef<HTMLDivElement>(null);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="w-screen h-screen">
+      <div
+        ref={containerRef}
+        className="w-full h-full 
+          bg-[url(https://images.pexels.com/photos/956999/milky-way-starry-sky-night-sky-star-956999.jpeg)]
+          bg-cover bg-center bg-no-repeat
+          flex flex-col items-center justify-center gap-8 p-8"
+      >
+        <SearchBar containerRef={containerRef} />
+
+        <div className="w-full min-h-screen flex flex-col items-center justify-center gap-4">
+          <div className="w-full flex justify-between gap-4">
+            <div className="flex-1 h-84 rounded-2xl">
+              <CurrentWeather />
+            </div>
+
+            <div className="w-2/5 h-84 rounded-2xl">
+              <DailyWeather />
+            </div>
+          </div>
+
+          <div className="w-full h-48 rounded-2xl">
+            <HourlyWeather />
+          </div>
+        </div>
       </div>
-      <h1>CI/CD change</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
