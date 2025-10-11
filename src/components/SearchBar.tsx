@@ -1,10 +1,16 @@
+import { useState } from "react";
 import { Search } from "lucide-react";
 import LiquidGlass from "liquid-glass-react";
+
+// Defining properties
 interface SearchBarProps {
+  onSearch?: (cityName: string) => void;
   containerRef?: React.RefObject<HTMLDivElement | null>;
 }
-
-export default function SearchBar({ containerRef }: Readonly<SearchBarProps>) {
+// prettier-ignore
+// SearchBar function
+export default function SearchBar({ onSearch, containerRef}: Readonly<SearchBarProps>) {
+  const [city, setCity] = useState("");
   return (
     <LiquidGlass
       mouseContainer={containerRef}
@@ -14,13 +20,16 @@ export default function SearchBar({ containerRef }: Readonly<SearchBarProps>) {
     >
       <button
         type="button"
-        onClick={() => console.log("Search button clicked")}
+        onClick={() => city && onSearch?.(city)}
         className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-600 hover:text-black hover:scale-110 transition-colors"
       >
         <Search className="w-5 h-5" />
       </button>
       <input
-        className="pl-10 pr-4 text-black text-lg rounded-md focus:outline-none"
+        value={city}
+        onChange={(e) => setCity(e.target.value)}
+        onKeyDown={(e) => e.key === "Enter" && city && onSearch?.(city)}
+        className="pl-10 pr-4 py-2 text-black text-lg rounded-md focus:outline-none"
         type="text"
         placeholder="Search City"
       />
