@@ -1,12 +1,13 @@
 import { LiquidGlass as NomalGlass } from "@liquidglass/react";
-import type { HourlyWeather } from "../assets/api/WeatherApi";
+import type { WeatherData } from "../assets/api/WeatherApi";
 
-interface HourlyWeatherProps {
-  data?: HourlyWeather;
+interface HourlyWeather {
+  info?: WeatherData["hourly"];
 }
 
-export default function HourlyWeather({ data }: HourlyWeatherProps) {
-  if (!data) {
+export default function HourlyWeather(weather: HourlyWeather) {
+  const { info } = weather;
+  if (!info) {
     return (
       <NomalGlass
         borderRadius={20}
@@ -30,9 +31,9 @@ export default function HourlyWeather({ data }: HourlyWeatherProps) {
       elasticity={0.3}
     >
       <div className="text-black text-center">
-        <h2 className="text-2xl font-bold mb-2">Current Weather</h2>
-        <p>Time: {JSON.stringify(data.time)}</p>
-        <p>Tempreture: {JSON.stringify(data.temperature_2m)} m/s</p>
+        <h2 className="text-2xl font-bold mb-2">Hourly Weather</h2>
+        <p>Time: {JSON.stringify(info.time)}</p>
+        <p>Tempreture: {JSON.stringify(info.temperature_2m)} m/s</p>
       </div>
     </NomalGlass>
   );

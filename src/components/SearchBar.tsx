@@ -2,15 +2,14 @@ import { useState } from "react";
 import { Search } from "lucide-react";
 import LiquidGlass from "liquid-glass-react";
 
+// Defining properties
 interface SearchBarProps {
+  onSearch?: (cityName: string) => void;
   containerRef?: React.RefObject<HTMLDivElement | null>;
-  onSearch?: (city: string) => void;
 }
-
-export default function SearchBar({
-  containerRef,
-  onSearch,
-}: Readonly<SearchBarProps>) {
+// prettier-ignore
+// SearchBar function
+export default function SearchBar({ onSearch, containerRef}: Readonly<SearchBarProps>) {
   const [city, setCity] = useState("");
   return (
     <LiquidGlass

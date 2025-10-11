@@ -1,133 +1,116 @@
 import { fetchWeatherApi } from "openmeteo";
 
+// Defining Constants
 const WEATHER_URL = "https://api.open-meteo.com/v1/forecast";
 const GEO_URL = "https://geocoding-api.open-meteo.com/v1/search";
 
+// Defining Data types
+//Coordinate
 export interface Coordinates {
   latitude: number;
   longitude: number;
 }
 
-export interface CurrentWeather {
-  time: Date;
-  temperature_2m: number;
-  relative_humidity_2m: number;
-  apparent_temperature: number;
-  weather_code: number;
-  wind_speed_10m: number;
-}
-
-export interface HourlyWeather {
-  time: Date[];
-  temperature_2m: number[];
-}
-
-export interface DailyWeather {
-  time: Date[];
-  weather_code: number[];
-  temperature_2m_min: number[];
-  temperature_2m_max: number[];
-}
-
+//Weather Data
 export interface WeatherData {
-  current: CurrentWeather;
-  hourly: HourlyWeather;
-  daily: DailyWeather;
+  current: {
+    time: Date;
+    is_day: number;
+    weather_code: number;
+    temperature_2m: number;
+    apparent_temperature: number;
+    relative_humidity_2m: number;
+    wind_speed_10m: number;
+  };
+  hourly: {
+    time: Date[];
+    temperature_2m: number[];
+  };
+  daily: {
+    time: Date[];
+    weather_code: number[];
+    temperature_2m_min: number[];
+    temperature_2m_max: number[];
+  };
 }
 
-/**
- * Get coordinates for a city name
- */
-async function getCoordByCity(cityName: string): Promise<Coordinates> {
-  const url = `${GEO_URL}?name=${encodeURIComponent(cityName)}&count=1`;
-  const response = await fetch(url);
-  const data = await response.json();
-
-  if (!data.results || data.results.length === 0) {
-    throw new Error(`No results found for the given city name: ${cityName}`);
-  }
-
-  const { latitude, longitude } = data.results[0];
-  return { latitude, longitude };
-}
-
-/**
- * Fetch weather data for a given city
- */
-export default async function getWeatherByCity(
-  cityName: string
-): Promise<WeatherData> {
+// Function to get Coordinates from a city name
+async function cityToCoord(cityName: string): Promise<Coordinates> {
   try {
-    const { latitude, longitude } = await getCoordByCity(cityName);
+    const apiUrl = `${GEO_URL}?name=${cityName}&count=1&language=en&format=json`;
+    const response = await fetch(apiUrl);
 
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const responseJson = await response.json();
+
+    if (!responseJson.results || responseJson.results.length === 0) {
+      throw new Error(`City not found ${cityName}`);
+    }
+
+    const responseData = responseJson.results[0];
+    const coordinates: Coordinates = {
+      latitude: responseData.latitude,
+      longitude: responseData.longitude,
+    };
+    return coordinates;
+  } catch (err: unknown) {
+    console.error("Error fetching coordinates:", err);
+    throw err;
+  }
+}
+
+// prettier-ignore
+// Function to get Weather data from the coordinate
+export default async function getWeather( cityName: string): Promise<WeatherData> {
+  try {
+    const coordinates = await cityToCoord(cityName);
     const params = {
-      latitude,
-      longitude,
-      current: [
-        "temperature_2m",
-        "relative_humidity_2m",
-        "apparent_temperature",
-        "weather_code",
-        "wind_speed_10m",
-      ],
+      latitude: coordinates.latitude,
+      longitude: coordinates.longitude,
+      current: ["is_day", "weather_code", "temperature_2m", "apparent_temperature", "relative_humidity_2m", "wind_speed_10m"],
       daily: ["weather_code", "temperature_2m_min", "temperature_2m_max"],
       hourly: "temperature_2m",
       timezone: "auto",
     };
+    const response = await fetchWeatherApi(WEATHER_URL, params);
+    const responseData = response[0];
+    // for timezone
+    const utcOffsetSeconds = responseData.utcOffsetSeconds();
 
-    const responses = await fetchWeatherApi(WEATHER_URL, params);
-    const response = responses[0];
-
-    const utcOffsetSeconds = Number(response.utcOffsetSeconds());
-    const current = response.current()!;
-    const hourly = response.hourly()!;
-    const daily = response.daily()!;
-
-    // Convert everything to numbers so TypeScript is happy
-    const currentTime = Number(current.time());
-
-    const hourlyStart = Number(hourly.time());
-    const hourlyEnd = Number(hourly.timeEnd());
-    const hourlyInterval = Number(hourly.interval());
-
-    const dailyStart = Number(daily.time());
-    const dailyEnd = Number(daily.timeEnd());
-    const dailyInterval = Number(daily.interval());
+    const daily = responseData.daily();
+    const hourly = responseData.hourly();
+    const curr = responseData.current();
 
     const weatherData: WeatherData = {
       current: {
-        time: new Date((currentTime + utcOffsetSeconds) * 1000),
-        temperature_2m: current.variables(0)!.value(),
-        relative_humidity_2m: current.variables(1)!.value(),
-        apparent_temperature: current.variables(2)!.value(),
-        weather_code: current.variables(3)!.value(),
-        wind_speed_10m: current.variables(4)!.value(),
+        time: new Date((Number(curr!.time()) + utcOffsetSeconds) * 1000),
+        is_day: curr!.variables(0)!.value(),
+        weather_code: curr!.variables(1)!.value(),
+        temperature_2m: curr!.variables(2)!.value(),
+        apparent_temperature: curr!.variables(3)!.value(),
+        relative_humidity_2m: curr!.variables(4)!.value(),
+        wind_speed_10m: curr!.variables(5)!.value()
       },
       hourly: {
-        time: Array.from(
-          { length: (hourlyEnd - hourlyStart) / hourlyInterval },
-          (_, i) =>
-            new Date(
-              (hourlyStart + i * hourlyInterval + utcOffsetSeconds) * 1000
-            )
-        ).slice(0, 24),
-        temperature_2m: [...(hourly.variables(0)!.valuesArray() || [])].slice(
-          0,
-          24
-        ),
+        time: [...Array((Number(hourly!.timeEnd()) - Number(hourly!.time())) / hourly!.interval())].map(
+			            (_, i) => new Date((Number(hourly!.time()) + i * hourly!.interval() + utcOffsetSeconds) * 1000)
+		          ).slice(0, 24),
+		    temperature_2m: [...(hourly!.variables(0)?.valuesArray() || [])],
       },
       daily: {
-        time: Array.from(
-          { length: (dailyEnd - dailyStart) / dailyInterval },
-          (_, i) =>
-            new Date((dailyStart + i * dailyInterval + utcOffsetSeconds) * 1000)
-        ),
-        weather_code: [...(daily.variables(0)!.valuesArray() || [])],
-        temperature_2m_min: [...(daily.variables(1)!.valuesArray() || [])],
-        temperature_2m_max: [...(daily.variables(2)!.valuesArray() || [])],
-      },
-    };
+		    time: [...Array((Number(daily!.timeEnd()) - Number(daily!.time())) / daily!.interval())].map(
+			            (_, i) => new Date((Number(daily!.time()) + i * daily!.interval() + utcOffsetSeconds) * 1000)
+		          ).slice(0, 7),
+		    weather_code: [...(daily!.variables(0)?.valuesArray() || [])],
+		    temperature_2m_max: [...(daily!.variables(1)!.valuesArray() || [])],
+		    temperature_2m_min: [...(daily!.variables(2)!.valuesArray() || [])],
+	    },
+    }
+
     return weatherData;
+
   } catch (err: unknown) {
     console.error("Error fetching weather data:", err);
     throw err;

@@ -1,12 +1,13 @@
 import { LiquidGlass as NomalGlass } from "@liquidglass/react";
-import type { DailyWeather } from "../assets/api/WeatherApi";
+import type { WeatherData } from "../assets/api/WeatherApi";
 
-interface DailyWeatherProps {
-  data?: DailyWeather;
+interface DailyWeather {
+  info?: WeatherData["daily"];
 }
 
-export default function DailyWeather({ data }: DailyWeatherProps) {
-  if (!data) {
+export default function DailyWeather(weather: DailyWeather) {
+  const { info } = weather;
+  if (!info) {
     return (
       <NomalGlass
         borderRadius={20}
@@ -30,11 +31,11 @@ export default function DailyWeather({ data }: DailyWeatherProps) {
       elasticity={0.3}
     >
       <div className="text-black text-center">
-        <h2 className="text-2xl font-bold mb-2">Current Weather</h2>
-        <p>Time: {JSON.stringify(data.time)}</p>
-        <p>Weather Code: {JSON.stringify(data.weather_code)}</p>
-        <p>Tempreture min: {JSON.stringify(data.temperature_2m_min)}%</p>
-        <p>Tempreture max: {JSON.stringify(data.temperature_2m_max)} m/s</p>
+        <h2 className="text-2xl font-bold mb-2">Daily Weather</h2>
+        <p>Time: {JSON.stringify(info.time)}</p>
+        <p>Weather Code: {JSON.stringify(info.weather_code)}</p>
+        <p>Tempreture min: {JSON.stringify(info.temperature_2m_min)}%</p>
+        <p>Tempreture max: {JSON.stringify(info.temperature_2m_max)} m/s</p>
       </div>
     </NomalGlass>
   );
