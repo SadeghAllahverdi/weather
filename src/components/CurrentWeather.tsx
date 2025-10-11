@@ -34,39 +34,40 @@ export default function CurrentWeather(weather: CurrentWeather) {
       saturation={1.1}
       elasticity={0.3}
     >
-      <div className="w-full h-full p-4 flex flex-col justify-between font-[Inter] text-gray-900 ">
-        <h2 className="text-l text-center">Current Weather</h2>
-        <div className="grid grid-cols-2">
-          <div className="flex flex-col justify-center">
-            <div className="h-2/3 w-full flex items-end bg-green-500 ">
-              <p className="text-6xl font-bold">
-                {info.temperature_2m.toFixed(1)}°
-              </p>
-            </div>
-            <div className="h-1/3 w-full flex items-end bg-yellow-500">
-              <p className="opacity-70">
-                Feels like {info.apparent_temperature.toFixed(1)}°C
-              </p>
-            </div>
-          </div>
-          <div>
-            <img
-              src={getWeatherIcon(info.is_day, info.weather_code)}
-              alt="weather icon"
-              className="bg-red-500"
-            />
-          </div>
+      <div className="w-full h-full grid grid-cols-4 grid-rows-2 gap-1 p-2 md:grid-cols-7 font-[Roboto_Serif]">
+        <div className="col-span-3 row-span-1 md:col-span-5">
+          <p>{info.temperature_2m.toFixed(1)}°</p>
+          <p>Feels like {info.apparent_temperature.toFixed(1)}°C</p>
         </div>
 
-        <div className="grid grid-cols-2">
-          <div className="">
-            <img src={icons.metric.humidity} alt="humidity icon" />
-            <p className="opacity-70">{info.relative_humidity_2m}%</p>
-          </div>
-          <div className="bg-blue-500">
-            <img src={getBeaufortIcon(info.wind_speed_10m)} alt="wind icon" />
-            <p className="opacity-70">{info.wind_speed_10m.toFixed(1)}Km/h</p>
-          </div>
+        <div className="col-span-1 row-span-1 md:col-span-2 flex flex-col md:flex-row">
+          <p className="w-full h-1/2 md:w-1/2 md:h-full">
+            {info.relative_humidity_2m}%
+          </p>
+          <img
+            src={icons.metric.humidity}
+            alt="wind icon"
+            className="w-full h-1/2 md:w-1/2 md:h-full bg-cyan-400 rounded-2xl opacity-60"
+          />
+        </div>
+
+        <div className="col-span-1 row-span-1  md:col-span-2 flex flex-col md:flex-row">
+          <p className="w-full h-1/2 md:w-1/2 md:h-full">
+            {info.wind_speed_10m.toFixed(1)} Km/h
+          </p>
+          <img
+            src={getBeaufortIcon(info.wind_speed_10m)}
+            alt="wind icon"
+            className="w-full h-1/2 md:w-1/2 md:h-full bg-cyan-400 rounded-2xl opacity-60"
+          />
+        </div>
+
+        <div className="col-span-3 row-span-1 md:col-span-5">
+          <img
+            src={getWeatherIcon(info.is_day, info.weather_code)}
+            alt="weather icon"
+            className="w-full h-full"
+          />
         </div>
       </div>
     </NomalGlass>

@@ -16,7 +16,6 @@ function App() {
     const weattherData = await getWeather(cityName);
     setWeather(weattherData);
   };
-
   return (
     <div className="w-screen min-h-screen">
       <div
