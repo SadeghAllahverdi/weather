@@ -1,6 +1,4 @@
-import { useRef } from "react";
-import { useState } from "react";
-
+import { useRef, useState } from "react";
 import getWeather from "./assets/api/WeatherApi.ts";
 import type { WeatherData } from "./assets/api/WeatherApi.ts";
 

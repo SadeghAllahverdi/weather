@@ -1,7 +1,7 @@
 const ICON_BASE_URL =
   "https://basmilius.github.io/weather-icons/production/fill/all";
 const windThresholds = [
-  0.3, 1.6, 3.4, 5.5, 8.0, 10.8, 13.9, 17.2, 20.8, 24.5, 28.5, 32.7,
+  0.3, 1.6, 3.4, 5.5, 8, 10.8, 13.9, 17.2, 20.8, 24.5, 28.5, 32.7,
 ];
 export const icons: {
   wind: Record<number, string>;

@@ -5,7 +5,7 @@ interface DailyWeather {
   info?: WeatherData["daily"];
 }
 
-export default function DailyWeather(weather: DailyWeather) {
+export default function DailyWeather(weather: Readonly<DailyWeather>) {
   const { info } = weather;
   if (!info) {
     return (

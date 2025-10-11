@@ -5,7 +5,7 @@ interface HourlyWeather {
   info?: WeatherData["hourly"];
 }
 
-export default function HourlyWeather(weather: HourlyWeather) {
+export default function HourlyWeather(weather: Readonly<HourlyWeather>) {
   const { info } = weather;
   if (!info) {
     return (

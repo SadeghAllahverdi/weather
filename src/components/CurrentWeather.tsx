@@ -7,7 +7,7 @@ interface CurrentWeather {
   info?: WeatherData["current"];
 }
 
-export default function CurrentWeather(weather: CurrentWeather) {
+export default function CurrentWeather(weather: Readonly<CurrentWeather>) {
   const { info } = weather;
   if (!info) {
     return (

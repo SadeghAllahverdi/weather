@@ -94,13 +94,13 @@ export default async function getWeather( cityName: string): Promise<WeatherData
         wind_speed_10m: curr!.variables(5)!.value()
       },
       hourly: {
-        time: [...Array((Number(hourly!.timeEnd()) - Number(hourly!.time())) / hourly!.interval())].map(
+        time: [...new Array((Number(hourly!.timeEnd()) - Number(hourly!.time())) / hourly!.interval())].map(
 			            (_, i) => new Date((Number(hourly!.time()) + i * hourly!.interval() + utcOffsetSeconds) * 1000)
 		          ).slice(0, 24),
 		    temperature_2m: [...(hourly!.variables(0)?.valuesArray() || [])],
       },
       daily: {
-		    time: [...Array((Number(daily!.timeEnd()) - Number(daily!.time())) / daily!.interval())].map(
+		    time: [...new Array((Number(daily!.timeEnd()) - Number(daily!.time())) / daily!.interval())].map(
 			            (_, i) => new Date((Number(daily!.time()) + i * daily!.interval() + utcOffsetSeconds) * 1000)
 		          ).slice(0, 7),
 		    weather_code: [...(daily!.variables(0)?.valuesArray() || [])],
