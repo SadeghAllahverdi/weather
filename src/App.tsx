@@ -15,7 +15,7 @@ function App() {
     setWeather(weattherData);
   };
   return (
-    <div className="w-screen min-h-screen">
+    <div className="w-screen min-h-screen font-[Roboto_Serif]">
       <div
         ref={containerRef}
         className="w-full min-h-screen 

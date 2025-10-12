@@ -56,7 +56,8 @@ export const icons: {
     compass: `${ICON_BASE_URL}/compass.svg`,
     humidity: `${ICON_BASE_URL}/humidity.svg`,
     windsock: `${ICON_BASE_URL}/windsock.svg`,
-    thermometer: `${ICON_BASE_URL}/thermometer.svg`,
+    thermoCold: `${ICON_BASE_URL}/thermometer-colder.svg`,
+    thermoWarm: `${ICON_BASE_URL}/thermometer-warmer.svg`,
     notAvailable: `${ICON_BASE_URL}/not-available.svg`,
   },
 };
@@ -74,4 +75,18 @@ export function getWeatherIcon(day: number, wcode: number): string {
     weatherIcon = weatherIcon.replace("-day", "-night");
   }
   return weatherIcon;
+}
+
+export function getWeatherDescription(wcode: number): string {
+  const link = icons.weather[wcode]
+    .replace(ICON_BASE_URL + "/", "")
+    .replace(".svg", "")
+    .replace("-day", "");
+  const desc = link.split("-");
+
+  return desc.length === 1
+    ? desc[0]
+    : desc.length === 2
+    ? `${desc[0]} and ${desc[1]}`
+    : `${desc[0]} and ${desc[1]} with ${desc.slice(2).join(" ")}`;
 }
