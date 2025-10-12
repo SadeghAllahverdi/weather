@@ -1,6 +1,6 @@
 import { LiquidGlass as NomalGlass } from "@liquidglass/react";
 import type { WeatherData } from "../assets/api/WeatherApi";
-
+import { icons, getWeatherIcon } from "../assets/api/Icons";
 interface DailyWeather {
   info?: WeatherData["daily"];
 }
@@ -21,6 +21,7 @@ export default function DailyWeather(weather: Readonly<DailyWeather>) {
       </NomalGlass>
     );
   }
+  // prettier-ignore
   return (
     <NomalGlass
       borderRadius={20}
@@ -30,12 +31,86 @@ export default function DailyWeather(weather: Readonly<DailyWeather>) {
       saturation={1.1}
       elasticity={0.3}
     >
-      <div className="text-black text-center">
-        <h2 className="text-2xl font-bold mb-2">Daily Weather</h2>
-        <p>Time: {JSON.stringify(info.time)}</p>
-        <p>Weather Code: {JSON.stringify(info.weather_code)}</p>
-        <p>Tempreture min: {JSON.stringify(info.temperature_2m_min)}%</p>
-        <p>Tempreture max: {JSON.stringify(info.temperature_2m_max)} m/s</p>
+      <div className="w-full h-full grid grid-cols-17 grid-rows-4 gap-2 p-2 ">
+        <div className="col-span-5 row-span-4 flex flex-col">
+          <div className="w-full h-1/8 flex items-center justify-center">
+            <p>{new Date(info.time[0]).toLocaleDateString('de-DE')}</p>
+          </div>
+          <div className="w-full h-3/8">
+             <img
+                src={getWeatherIcon(1, info.weather_code[0])}
+                alt="wind icon"
+                className="w-full h-full"
+             />
+          </div>
+          <div className="w-full h-2/8 flex flex-row ">
+              <div className="w-1/2 h-full">
+                <img
+                src={icons.metric.thermoCold}
+                alt="wind icon"
+                className="w-full h-full"
+                />
+              </div>
+              <div className="w-1/2 h-full flex items-center justify-center">
+              <p>{info.temperature_2m_min[0].toFixed(1)}</p>
+              </div>
+          </div>
+          <div className="w-full h-2/8 flex flex-row">
+              <div className="w-1/2 h-full">
+                <img
+                src={icons.metric.thermoWarm}
+                alt="wind icon"
+                className="w-full h-full"
+                />
+              </div>
+              <div className="w-1/2 h-full flex items-center justify-center">
+              <p>{info.temperature_2m_max[0].toFixed(1)}</p>
+              </div>
+          </div>
+        </div>
+        {info.time.slice(1, 7).map((t, i) => {
+          return (
+            <div
+              key={new Date(t).toLocaleDateString()}
+              className="col-span-4 row-span-2 flex flex-col bg-white rounded-2xl p-2 shadow-[0_0_5px_rgba(0,0,0,0.19),0_4px_6px_rgba(0,0,0,0.23)]"
+            >
+              <div className="w-full h-1/8 flex items-center justify-center">
+                <p>{new Date(t).toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit' })}</p>
+              </div>
+              <div className="w-full h-3/8">
+                <img
+                  src={getWeatherIcon(1, info.weather_code[i + 1])}
+                  alt="weather icon"
+                  className="w-full h-full"
+                />
+              </div>
+              <div className="w-full h-2/8 flex flex-row">
+                <div className="w-1/2 h-full">
+                  <img
+                    src={icons.metric.thermoCold}
+                    alt="cold icon"
+                    className="w-full h-full"
+                  />
+                </div>
+                <div className="w-1/2 h-full flex items-center justify-center">
+                  <p>{info.temperature_2m_min[i + 1].toFixed(1)}</p>
+                </div>
+              </div>
+              <div className="w-full h-2/8 flex flex-row">
+                <div className="w-1/2 h-full">
+                  <img
+                    src={icons.metric.thermoWarm}
+                    alt="warm icon"
+                    className="w-full h-full"
+                  />
+                </div>
+                <div className="w-1/2 h-full flex items-center justify-center">
+                  <p>{info.temperature_2m_max[i + 1].toFixed(1)}</p>
+                </div>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </NomalGlass>
   );
