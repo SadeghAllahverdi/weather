@@ -40,6 +40,10 @@ export default function HourlyWeather(weather: Readonly<HourlyWeather>) {
       </NormalGlass>
     );
   }
+  const maxTemperature_2m = Math.round(Math.max(...info.temperature_2m) + 1);
+  const minTemperature_2m = Math.round(Math.min(...info.temperature_2m) - 1);
+  const max_Humidity = Math.round(Math.max(...info.relative_humidity_2m));
+  const min_Humidity = Math.round(Math.min(...info.relative_humidity_2m));
   const data = {
     labels: info.time.map((t) =>
       new Date(t).toLocaleString("de-DE", {
@@ -81,14 +85,14 @@ export default function HourlyWeather(weather: Readonly<HourlyWeather>) {
     },
     scales: {
       temp: {
-        min: 0,
-        max: 40,
-        ticks: { color: "rgba(0, 0, 0, 1)" },
+        min: minTemperature_2m,
+        max: maxTemperature_2m,
+        ticks: { color: "rgba(255, 0, 0, 1)" },
       },
       humid: {
-        min: 0,
-        max: 100,
-        ticks: { color: "rgba(0, 0, 0, 1)" },
+        min: min_Humidity,
+        max: max_Humidity,
+        ticks: { color: "rgba(0, 4, 255, 1)" },
       },
       x: {
         ticks: { color: "rgba(0, 0, 0, 1)" },
