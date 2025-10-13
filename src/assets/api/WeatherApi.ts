@@ -21,6 +21,7 @@ export interface WeatherData {
     apparent_temperature: number;
     relative_humidity_2m: number;
     wind_speed_10m: number;
+    pressure_msl: number;
   };
   hourly: {
     time: Date[];
@@ -69,7 +70,7 @@ export default async function getWeather( cityName: string): Promise<WeatherData
     const params = {
       latitude: coordinates.latitude,
       longitude: coordinates.longitude,
-      current: ["is_day", "weather_code", "temperature_2m", "apparent_temperature", "relative_humidity_2m", "wind_speed_10m"],
+      current: ["is_day", "weather_code", "temperature_2m", "apparent_temperature", "relative_humidity_2m", "wind_speed_10m", "pressure_msl"],
       daily: ["weather_code", "temperature_2m_min", "temperature_2m_max"],
       hourly: "temperature_2m",
       timezone: "auto",
@@ -91,7 +92,8 @@ export default async function getWeather( cityName: string): Promise<WeatherData
         temperature_2m: curr!.variables(2)!.value(),
         apparent_temperature: curr!.variables(3)!.value(),
         relative_humidity_2m: curr!.variables(4)!.value(),
-        wind_speed_10m: curr!.variables(5)!.value()
+        wind_speed_10m: curr!.variables(5)!.value(),
+        pressure_msl: curr!.variables(6)!.value()
       },
       hourly: {
         time: [...new Array((Number(hourly!.timeEnd()) - Number(hourly!.time())) / hourly!.interval())].map(
