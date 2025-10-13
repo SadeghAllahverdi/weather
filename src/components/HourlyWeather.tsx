@@ -11,13 +11,13 @@ export default function HourlyWeather(weather: Readonly<HourlyWeather>) {
     return (
       <NomalGlass
         borderRadius={20}
-        blur={1.8}
+        blur={2}
         contrast={1.15}
-        brightness={1}
+        brightness={1.05}
         saturation={1.1}
         elasticity={0.3}
       >
-        <div className="px-8 py-4 text-white text-lg">Loading ...</div>
+        <div className="px-8 py-4 text-white text-lg">Loading...</div>
       </NomalGlass>
     );
   }

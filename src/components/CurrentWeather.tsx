@@ -20,12 +20,12 @@ export default function CurrentWeather(weather: Readonly<CurrentWeather>) {
         borderRadius={20}
         blur={2}
         contrast={1.15}
-        brightness={1}
+        brightness={1.05}
         saturation={1.1}
         elasticity={0.3}
       >
         <div className="px-8 py-4">
-          <img src={icons.metric.notAvailable} alt="not available icon" />
+          <div className="px-8 py-4 text-white text-lg">Loading...</div>
         </div>
       </NomalGlass>
     );
@@ -40,56 +40,78 @@ export default function CurrentWeather(weather: Readonly<CurrentWeather>) {
       elasticity={0.3}
     >
       <div
-        className="w-full h-full grid grid-cols-4 grid-rows-2 gap-3 p-2 md:grid-cols-7
-                 text-white text-shadow-[0_10px_20px_rgba(0,0,0,0.19),0_6px_6px_rgba(0,0,0,0.23)]"
+        className="w-full h-full grid grid-cols-6 grid-rows-3 gap-2 p-2 
+             text-white text-shadow-[0_10px_20px_rgba(0,0,0,0.19),0_6px_6px_rgba(0,0,0,0.23)]"
       >
-        <div className="col-span-3 row-span-1 flex flex-col md:col-span-5">
-          <div className="w-full h-4/5 flex items-center justify-center">
-            <p className="text-8xl">{info.temperature_2m.toFixed(1)}°</p>
+        <div className="col-span-3 row-span-2 flex flex-col items-center justify-center">
+          <div className="w-full flex items-center justify-center">
+            <p className="text-6xl mb:text-7xl">
+              {info.temperature_2m.toFixed(1)}°
+            </p>
           </div>
-          <div className="w-full h-1/5 flex items-center justify-center">
-            <p>Feels like {info.apparent_temperature.toFixed(1)}°C</p>
+          <div className="w-full flex items-center justify-center">
+            <p className="text-sm">
+              Feels like {info.apparent_temperature.toFixed(1)}°C
+            </p>
           </div>
-        </div>
-
-        <div
-          className="col-span-1 row-span-1 md:col-span-2 flex flex-col md:flex-row bg-white rounded-2xl
-                        shadow-[0_10px_20px_rgba(0,0,0,0.19),0_6px_6px_rgba(0,0,0,0.23)]"
-        >
-          <div className="w-full h-1/3 md:w-1/2 flex items-center justify-center md:h-full ">
-            <p className="text-black text-4xl">{info.relative_humidity_2m}</p>
-          </div>
-          <div className="w-full h-2/3 md:w-1/2 flex items-center justify-center md:h-full">
-            <img src={icons.metric.humidity} alt="wind icon" />
+          <div className="w-full flex items-center justify-center">
+            <p className="text-sm">
+              {getWeatherDescription(info.weather_code)}
+            </p>
           </div>
         </div>
 
-        <div
-          className="col-span-1 row-span-1  md:col-span-2 flex flex-col p-1 md:flex-row bg-white rounded-2xl
-                        shadow-[0_10px_20px_rgba(0,0,0,0.19),0_6px_6px_rgba(0,0,0,0.23)]"
-        >
-          <div className="w-full h-1/2 md:w-1/2 flex items-center justify-center md:h-full">
-            <p className="text-black">{info.wind_speed_10m.toFixed(1)} Km/h</p>
-          </div>
-          <div className="w-full h-1/2 flex items-center justify-centermd:w-1/2 md:h-full">
-            <img
-              src={getBeaufortIcon(info.wind_speed_10m)}
-              alt="wind icon"
-              className="w-full h-full"
-            />
-          </div>
-        </div>
-
-        <div className="col-span-3 row-span-1 flex flex-col pb-4 md:col-span-5 md:flex-row">
-          <div className="w-full h-9/10 md:w-7/10 md:h-full">
+        <div className="col-span-3 row-span-2 flex flex-col items-center justify-center">
+          <figure className="flex flex-col items-center justify-center">
             <img
               src={getWeatherIcon(info.is_day, info.weather_code)}
               alt="weather icon"
               className="w-full h-full"
             />
+          </figure>
+        </div>
+
+        <div
+          className="col-span-2 row-span-1 flex flex-row 
+               bg-white rounded-2xl shadow-[0_10px_20px_rgba(0,0,0,0.19),0_6px_6px_rgba(0,0,0,0.23)]"
+        >
+          <div className="w-1/2 h-full flex items-center justify-center">
+            <p className="text-black text-sm">{info.relative_humidity_2m}%</p>
           </div>
-          <div className="w-full h-1/10 md:w-3/10 md:h-full flex items-center justify-center">
-            <p>{getWeatherDescription(info.weather_code)}</p>
+          <div className="w-1/2 h-full flex items-center justify-center">
+            <img src={icons.metric.humidity} alt="humidity icon" />
+          </div>
+        </div>
+
+        <div
+          className="col-span-2 row-span-1 flex items-center justify-center 
+               bg-white rounded-2xl shadow-[0_10px_20px_rgba(0,0,0,0.19),0_6px_6px_rgba(0,0,0,0.23)]"
+        >
+          <div className="w-1/2 h-full flex items-center justify-center">
+            <p className="text-black text-sm">
+              {info.wind_speed_10m.toFixed(1)}
+              <br />
+              km/h
+            </p>
+          </div>
+          <div className="w-1/2 h-full flex items-center justify-center">
+            <img src={getBeaufortIcon(info.wind_speed_10m)} alt="wind icon" />
+          </div>
+        </div>
+
+        <div
+          className="col-span-2 row-span-1 flex items-center justify-center 
+               bg-white rounded-2xl shadow-[0_10px_20px_rgba(0,0,0,0.19),0_6px_6px_rgba(0,0,0,0.23)]"
+        >
+          <div className="w-1/2 h-full flex items-center justify-center">
+            <p className="text-black text-sm">
+              {info.pressure_msl.toFixed(1)}
+              <br />
+              hPa
+            </p>
+          </div>
+          <div className="w-1/2 h-full flex items-center justify-center">
+            <img src={icons.metric.barometer} alt="pressure icon" />
           </div>
         </div>
       </div>

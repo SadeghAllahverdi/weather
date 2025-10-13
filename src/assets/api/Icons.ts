@@ -54,10 +54,11 @@ export const icons: {
   },
   metric: {
     compass: `${ICON_BASE_URL}/compass.svg`,
-    humidity: `${ICON_BASE_URL}/humidity.svg`,
+    humidity: `${ICON_BASE_URL}/raindrops.svg`,
     windsock: `${ICON_BASE_URL}/windsock.svg`,
     thermoCold: `${ICON_BASE_URL}/thermometer-colder.svg`,
     thermoWarm: `${ICON_BASE_URL}/thermometer-warmer.svg`,
+    barometer: `${ICON_BASE_URL}/barometer.svg`,
     notAvailable: `${ICON_BASE_URL}/not-available.svg`,
   },
 };
