@@ -18,7 +18,7 @@ function App() {
     <div className="w-screen min-h-screen font-[Roboto_Serif]">
       <div
         ref={containerRef}
-        className="w-full min-h-screen 
+        className="w-full min-h-screen
           bg-[url(https://images.pexels.com/photos/2224919/pexels-photo-2224919.jpeg?_gl=1*o62dpz*_ga*MTQyOTQzODc5NS4xNzU5Nzc3NTE2*_ga_8JE65Q40S6*czE3NTk4NDU0ODEkbzMkZzAkdDE3NTk4NDU0ODEkajYwJGwwJGgw)]
           bg-cover bg-center
           flex flex-col items-center justify-center gap-8 p-8"

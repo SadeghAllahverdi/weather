@@ -16,7 +16,7 @@ export default function SearchBar({ onSearch, containerRef}: Readonly<SearchBarP
       mouseContainer={containerRef}
       cornerRadius={20}
       elasticity={0.9}
-      style={{ position: "fixed", top: "10%", left: "50%", zIndex: 1 }}
+      style={{ position: "fixed", top: "10%", left: "50%", zIndex: 1}}
     >
       <button
         type="button"
@@ -29,7 +29,7 @@ export default function SearchBar({ onSearch, containerRef}: Readonly<SearchBarP
         value={city}
         onChange={(e) => setCity(e.target.value)}
         onKeyDown={(e) => e.key === "Enter" && city && onSearch?.(city)}
-        className="pl-10 pr-4 py-2 text-black text-lg rounded-md focus:outline-none"
+        className="pl-10 py-2 text-black text-lg rounded-md focus:outline-none"
         type="text"
         placeholder="Search City"
       />

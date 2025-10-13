@@ -1,4 +1,4 @@
-import { LiquidGlass as NomalGlass } from "@liquidglass/react";
+import { LiquidGlass as NormalGlass } from "@liquidglass/react";
 import type { WeatherData } from "../assets/api/WeatherApi";
 import {
   icons,
@@ -16,7 +16,7 @@ export default function CurrentWeather(weather: Readonly<CurrentWeather>) {
   const { info } = weather;
   if (!info) {
     return (
-      <NomalGlass
+      <NormalGlass
         borderRadius={20}
         blur={2}
         contrast={1.15}
@@ -25,13 +25,13 @@ export default function CurrentWeather(weather: Readonly<CurrentWeather>) {
         elasticity={0.3}
       >
         <div className="px-8 py-4">
-          <div className="px-8 py-4 text-white text-lg">Loading...</div>
+          <div className="px-8 py-4 text-black text-lg dark:text-white text-shadow-[0_10px_20px_rgba(0,0,0,0.19),0_6px_6px_rgba(0,0,0,0.23)]">Loading...</div>
         </div>
-      </NomalGlass>
+      </NormalGlass>
     );
   }
   return (
-    <NomalGlass
+    <NormalGlass
       borderRadius={20}
       blur={4}
       contrast={1.1}
@@ -40,7 +40,7 @@ export default function CurrentWeather(weather: Readonly<CurrentWeather>) {
       elasticity={0.3}
     >
       <div
-        className="w-full h-full grid grid-cols-6 grid-rows-3 gap-2 p-2 
+        className="w-full h-full grid grid-cols-6 grid-rows-3 gap-2 p-2
              text-white text-shadow-[0_10px_20px_rgba(0,0,0,0.19),0_6px_6px_rgba(0,0,0,0.23)]"
       >
         <div className="col-span-3 row-span-2 flex flex-col items-center justify-center">
@@ -72,7 +72,7 @@ export default function CurrentWeather(weather: Readonly<CurrentWeather>) {
         </div>
 
         <div
-          className="col-span-2 row-span-1 flex flex-row 
+          className="col-span-2 row-span-1 flex flex-row
                bg-white rounded-2xl shadow-[0_10px_20px_rgba(0,0,0,0.19),0_6px_6px_rgba(0,0,0,0.23)]"
         >
           <div className="w-1/2 h-full flex items-center justify-center">
@@ -84,7 +84,7 @@ export default function CurrentWeather(weather: Readonly<CurrentWeather>) {
         </div>
 
         <div
-          className="col-span-2 row-span-1 flex items-center justify-center 
+          className="col-span-2 row-span-1 flex items-center justify-center
                bg-white rounded-2xl shadow-[0_10px_20px_rgba(0,0,0,0.19),0_6px_6px_rgba(0,0,0,0.23)]"
         >
           <div className="w-1/2 h-full flex items-center justify-center">
@@ -100,7 +100,7 @@ export default function CurrentWeather(weather: Readonly<CurrentWeather>) {
         </div>
 
         <div
-          className="col-span-2 row-span-1 flex items-center justify-center 
+          className="col-span-2 row-span-1 flex items-center justify-center
                bg-white rounded-2xl shadow-[0_10px_20px_rgba(0,0,0,0.19),0_6px_6px_rgba(0,0,0,0.23)]"
         >
           <div className="w-1/2 h-full flex items-center justify-center">
@@ -115,6 +115,6 @@ export default function CurrentWeather(weather: Readonly<CurrentWeather>) {
           </div>
         </div>
       </div>
-    </NomalGlass>
+    </NormalGlass>
   );
 }

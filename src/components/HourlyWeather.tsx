@@ -1,5 +1,5 @@
 // prettier-ignore
-import { LiquidGlass as NomalGlass } from "@liquidglass/react";
+import { LiquidGlass as NormalGlass } from "@liquidglass/react";
 import type { WeatherData } from "../assets/api/WeatherApi";
 import { Line } from "react-chartjs-2";
 import {
@@ -27,7 +27,7 @@ export default function HourlyWeather(weather: Readonly<HourlyWeather>) {
   const { info } = weather;
   if (!info) {
     return (
-      <NomalGlass
+      <NormalGlass
         borderRadius={20}
         blur={2}
         contrast={1.15}
@@ -35,8 +35,9 @@ export default function HourlyWeather(weather: Readonly<HourlyWeather>) {
         saturation={1.1}
         elasticity={0.3}
       >
-        <div className="px-8 py-4 text-white text-lg">Loading...</div>
-      </NomalGlass>
+        <div className="px-8 py-4 text-dark text-lg dark:text-white
+        text-shadow-[0_10px_20px_rgba(0,0,0,0.19),0_6px_6px_rgba(0,0,0,0.23)]">Loading...</div>
+      </NormalGlass>
     );
   }
   const data = {
@@ -48,18 +49,18 @@ export default function HourlyWeather(weather: Readonly<HourlyWeather>) {
     ),
     datasets: [
       {
-        label: "",
+        label: "temperature (°C)",
         data: info.temperature_2m,
         borderColor: "#E52B50",
         borderWidth: 3,
         pointRadius: 2,
-        pointHoverBackgroundColor: "#FBCEB1",
+        pointHoverBackgroundColor: "rgba(0, 0, 0, 0)",
         tension: 0.4,
         fill: false,
         yAxisID: "temp",
       },
       {
-        label: "",
+        label: "humidity (%)",
         data: info.relative_humidity_2m,
         borderColor: "#0CAFFF",
         borderWidth: 3,
@@ -81,16 +82,16 @@ export default function HourlyWeather(weather: Readonly<HourlyWeather>) {
     scales: {
       temp: {
         min: 0,
-        max: 60,
-        ticks: { color: "#fff" },
+        max: 40,
+        ticks: { color: "rgba(0, 0, 0, 1)" },
       },
       humid: {
         min: 0,
         max: 100,
-        ticks: { color: "#fff" },
+        ticks: { color: "rgba(0, 0, 0, 1)" },
       },
       x: {
-        ticks: { color: "#fff" },
+        ticks: { color: "rgba(0, 0, 0, 1)" },
       },
     },
     responsive: true,
@@ -98,7 +99,7 @@ export default function HourlyWeather(weather: Readonly<HourlyWeather>) {
   };
 
   return (
-    <NomalGlass
+    <NormalGlass
       borderRadius={20}
       blur={2}
       contrast={1.15}
@@ -110,6 +111,6 @@ export default function HourlyWeather(weather: Readonly<HourlyWeather>) {
         {/* <Line data={data} options={options} /> */}
         <Line data={data} options={options} />
       </div>
-    </NomalGlass>
+    </NormalGlass>
   );
 }
