@@ -1,4 +1,4 @@
-import { LiquidGlass as NomalGlass } from "@liquidglass/react";
+import { LiquidGlass as NormalGlass } from "@liquidglass/react";
 import type { WeatherData } from "../assets/api/WeatherApi";
 import { icons, getWeatherIcon } from "../assets/api/Icons";
 interface DailyWeather {
@@ -9,7 +9,7 @@ export default function DailyWeather(weather: Readonly<DailyWeather>) {
   const { info } = weather;
   if (!info) {
     return (
-      <NomalGlass
+      <NormalGlass
         borderRadius={20}
         blur={2}
         contrast={1.15}
@@ -17,13 +17,15 @@ export default function DailyWeather(weather: Readonly<DailyWeather>) {
         saturation={1.1}
         elasticity={0.3}
       >
-        <div className="px-8 py-4 text-white text-lg">Loading...</div>
-      </NomalGlass>
+        <div className="px-8 py-4 text-black text-lg
+        text-shadow-[0_10px_20px_rgba(0,0,0,0.19),0_6px_6px_rgba(0,0,0,0.23)]
+         dark:text-white">Loading...</div>
+      </NormalGlass>
     );
   }
   // prettier-ignore
   return (
-    <NomalGlass
+    <NormalGlass
       borderRadius={20}
       blur={2}
       contrast={1.15}
@@ -32,12 +34,13 @@ export default function DailyWeather(weather: Readonly<DailyWeather>) {
       elasticity={0.3}
     >
       <div className="w-full h-full grid grid-cold-4 grid-rows-7
-                      md:grid-cols-17 md:grid-rows-4 gap-2 p-2 ">
+                      md:grid-cols-17 md:grid-rows-4 gap-2 p-2
+                      text-shadow-[0_10px_20px_rgba(0,0,0,0.19),0_6px_6px_rgba(0,0,0,0.23)] ">
         <div className="col-span-4 row-span-1 flex flex-row
                         md:col-span-5 md:row-span-4 md:flex-col">
           <div className="w-1/4 h-full flex items-center justify-center
                           md:w-full md:h-1/8">
-            <p className="text-sm md:text-xs">{new Date(info.time[0]).toLocaleDateString('de-DE')}</p>
+            <p className="text-sm md:text-xs ">{new Date(info.time[0]).toLocaleDateString('de-DE')}</p>
           </div>
           <div className="w-1/4 h-full flex items-center justify-center
                           md:w-full md:h-3/8">
@@ -47,7 +50,7 @@ export default function DailyWeather(weather: Readonly<DailyWeather>) {
                 className="w-full h-full"
              />
           </div>
-          <div className="w-1/4 h-full flex flex-row 
+          <div className="w-1/4 h-full flex flex-row
                           md:w-full md:h-2/8">
               <div className="w-1/2 h-full">
                 <img
@@ -60,7 +63,7 @@ export default function DailyWeather(weather: Readonly<DailyWeather>) {
               <p className="text-sm md:text-xs">{info.temperature_2m_min[0].toFixed(1)}</p>
               </div>
           </div>
-          <div className="w-1/4 h-full flex flex-row 
+          <div className="w-1/4 h-full flex flex-row
                           md:w-full md:h-2/8">
               <div className="w-1/2 h-full">
                 <img
@@ -93,7 +96,7 @@ export default function DailyWeather(weather: Readonly<DailyWeather>) {
                   className="w-full h-full"
                 />
               </div>
-              <div className="w-1/4 h-full flex flex-row 
+              <div className="w-1/4 h-full flex flex-row
                               md:w-full md:h-2/8">
                 <div className="w-1/2 h-full">
                   <img
@@ -123,6 +126,6 @@ export default function DailyWeather(weather: Readonly<DailyWeather>) {
           );
         })}
       </div>
-    </NomalGlass>
+    </NormalGlass>
   );
 }
