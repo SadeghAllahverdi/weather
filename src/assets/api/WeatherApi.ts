@@ -108,8 +108,8 @@ export default async function getWeather( cityName: string): Promise<WeatherData
 			            (_, i) => new Date((Number(daily!.time()) + i * daily!.interval() + utcOffsetSeconds) * 1000)
 		          ).slice(0, 7),
 		    weather_code: [...(daily!.variables(0)?.valuesArray() || [])],
-		    temperature_2m_max: [...(daily!.variables(1)!.valuesArray() || [])],
-		    temperature_2m_min: [...(daily!.variables(2)!.valuesArray() || [])],
+		    temperature_2m_min: [...(daily!.variables(1)!.valuesArray() || [])],
+		    temperature_2m_max: [...(daily!.variables(2)!.valuesArray() || [])],
 	    },
     }
 
