@@ -6,6 +6,7 @@ import SearchBar from "./components/SearchBar";
 import CurrentWeather from "./components/CurrentWeather";
 import DailyWeather from "./components/DailyWeather";
 import HourlyWeather from "./components/HourlyWeather";
+import { GlareCard } from "./components/ui/glare-card.tsx";
 
 function App() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -24,9 +25,10 @@ function App() {
           flex flex-col items-center justify-center gap-8 p-8"
       >
         {/* Search bar component */}
-        <SearchBar containerRef={containerRef} onSearch={handleSearch} />
+      <SearchBar containerRef={containerRef} onSearch={handleSearch} />
 
         {/* Weather components */}
+        <GlareCard>
         <div className="w-8/10 min-h-screen z-0 flex flex-col items-center justify-center gap-7 mt-30 md:mt-20">
           <div className="w-full flex flex-col md:flex-row justify-between gap-7">
             <div className="w-full md:flex-1 h-96 md:h-84 rounded-2xl hover:scale-105 transition duration-500 ease-in-out">
@@ -41,9 +43,12 @@ function App() {
           <div className="w-full h-64 rounded-2xl hover:scale-105 transition duration-500 ease-in-out">
             <HourlyWeather info={weather?.hourly} />
           </div>
-        </div>
+          </div>
       </div>
-    </div>
+      <div className="p-8 flex gap-6 items-start">
+
+      </div>
+      </div>
   );
 }
 
