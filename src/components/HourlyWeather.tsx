@@ -17,7 +17,7 @@ ChartJS.register(
   LinearScale,
   PointElement,
   Tooltip,
-  Legend
+  Legend,
 );
 
 interface HourlyWeather {
@@ -35,8 +35,9 @@ export default function HourlyWeather(weather: Readonly<HourlyWeather>) {
         saturation={1.1}
         elasticity={0.3}
       >
-        <div className="px-8 py-4 text-dark text-lg dark:text-white
-        text-shadow-[0_10px_20px_rgba(0,0,0,0.19),0_6px_6px_rgba(0,0,0,0.23)]">Loading...</div>
+        <div className="text-dark px-8 py-4 text-lg text-shadow-[0_10px_20px_rgba(0,0,0,0.19),0_6px_6px_rgba(0,0,0,0.23)] dark:text-white">
+          Loading...
+        </div>
       </NormalGlass>
     );
   }
@@ -49,7 +50,7 @@ export default function HourlyWeather(weather: Readonly<HourlyWeather>) {
       new Date(t).toLocaleString("de-DE", {
         hour: "2-digit",
         minute: "2-digit",
-      })
+      }),
     ),
     datasets: [
       {
@@ -111,7 +112,7 @@ export default function HourlyWeather(weather: Readonly<HourlyWeather>) {
       saturation={1.1}
       elasticity={0.3}
     >
-      <div className="w-full h-full p-2">
+      <div className="h-full w-full p-2">
         {/* <Line data={data} options={options} /> */}
         <Line data={data} options={options} />
       </div>

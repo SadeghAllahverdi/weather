@@ -17,9 +17,9 @@ export default function DailyWeather(weather: Readonly<DailyWeather>) {
         saturation={1.1}
         elasticity={0.3}
       >
-        <div className="px-8 py-4 text-black text-lg
-        text-shadow-[0_10px_20px_rgba(0,0,0,0.19),0_6px_6px_rgba(0,0,0,0.23)]
-         dark:text-white">Loading...</div>
+        <div className="px-8 py-4 text-lg text-black text-shadow-[0_10px_20px_rgba(0,0,0,0.19),0_6px_6px_rgba(0,0,0,0.23)] dark:text-white">
+          Loading...
+        </div>
       </NormalGlass>
     );
   }
