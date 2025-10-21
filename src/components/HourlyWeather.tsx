@@ -11,7 +11,6 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { TypeOutline } from "lucide-react";
 ChartJS.register(
   LineElement,
   CategoryScale,
@@ -49,6 +48,9 @@ export default function HourlyWeather(weather: Readonly<HourlyWeather>) {
   const minTemperature_2m = Math.round(Math.min(...info.temperature_2m) - 1);
   const max_Humidity = Math.round(Math.max(...info.relative_humidity_2m) + 1);
   const min_Humidity = Math.round(Math.min(...info.relative_humidity_2m) - 1);
+  const max_Dew = Math.round(Math.max(...info.dew_point_2m) + 1);
+  const min_Dew = Math.round(Math.min(...info.dew_point_2m) - 1);
+
   const data = {
     labels: info.time.map((t) =>
       new Date(t).toLocaleString("de-DE", {
@@ -79,6 +81,17 @@ export default function HourlyWeather(weather: Readonly<HourlyWeather>) {
         fill: false,
         yAxisID: "humid",
       },
+      {
+        label: "dew (%)",
+        data: info.dew_point_2m,
+        borderColor: "#gray",
+        borderWidth: 3,
+        pointRadius: 2,
+        pointHoverBackgroundColor: "black",
+        tension: 0.4,
+        fill: false,
+        yAxisID: "dew",
+      },
     ],
   };
   const options = {
@@ -104,6 +117,14 @@ export default function HourlyWeather(weather: Readonly<HourlyWeather>) {
       humid: {
         min: min_Humidity,
         max: max_Humidity,
+        ticks: {
+          color: "#0CAFFF",
+          font: { size: 14, family: "'Roboto Serif', serif" },
+        },
+      },
+      dew: {
+        min: min_Dew,
+        max: max_Dew,
         ticks: {
           color: "#0CAFFF",
           font: { size: 14, family: "'Roboto Serif', serif" },

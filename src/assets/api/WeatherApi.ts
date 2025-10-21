@@ -27,6 +27,7 @@ export interface WeatherData {
     time: Date[];
     temperature_2m: number[];
     relative_humidity_2m: number[];
+    dew_point_2m: number[];
   };
   daily: {
     time: Date[];
@@ -73,7 +74,7 @@ export default async function getWeather( cityName: string): Promise<WeatherData
       longitude: coordinates.longitude,
       current: ["is_day", "weather_code", "temperature_2m", "apparent_temperature", "relative_humidity_2m", "wind_speed_10m", "pressure_msl"],
       daily: ["weather_code", "temperature_2m_min", "temperature_2m_max"],
-      hourly: ["temperature_2m", "relative_humidity_2m"],
+      hourly: ["temperature_2m", "relative_humidity_2m", "dew_point_2m"],
       timezone: "auto",
     };
     const response = await fetchWeatherApi(WEATHER_URL, params);
@@ -102,6 +103,7 @@ export default async function getWeather( cityName: string): Promise<WeatherData
 		          ).slice(0, 24),
 		    temperature_2m: [...(hourly!.variables(0)?.valuesArray() || [])].slice(0, 24),
         relative_humidity_2m: [...(hourly!.variables(1)?.valuesArray() || [])].slice(0, 24),
+        dew_point_2m: [...(hourly!.variables(2)?.valuesArray() || [])].slice(0, 24),
       },
       daily: {
 		    time: [...new Array((Number(daily!.timeEnd()) - Number(daily!.time())) / daily!.interval())].map(
