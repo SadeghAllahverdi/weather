@@ -5,6 +5,7 @@ import {
   getBeaufortIcon,
   getWeatherIcon,
   getWeatherDescription,
+  getDewPoint,
 } from "../assets/api/Icons";
 
 // Defining Data type
@@ -25,7 +26,9 @@ export default function CurrentWeather(weather: Readonly<CurrentWeather>) {
         elasticity={0.3}
       >
         <div className="px-8 py-4">
-          <div className="px-8 py-4 text-black text-lg dark:text-white text-shadow-[0_10px_20px_rgba(0,0,0,0.19),0_6px_6px_rgba(0,0,0,0.23)]">Loading...</div>
+          <div className="px-8 py-4 text-black text-lg dark:text-white text-shadow-[0_10px_20px_rgba(0,0,0,0.19),0_6px_6px_rgba(0,0,0,0.23)]">
+            Loading...
+          </div>
         </div>
       </NormalGlass>
     );
@@ -43,7 +46,10 @@ export default function CurrentWeather(weather: Readonly<CurrentWeather>) {
         className="w-full h-full grid grid-cols-6 grid-rows-3 gap-2 p-2
              text-white text-shadow-[0_10px_20px_rgba(0,0,0,0.19),0_6px_6px_rgba(0,0,0,0.23)]"
       >
-        <div className="col-span-3 row-span-2 flex flex-col items-center justify-center">
+        <div
+          className="col-span-3 row-span-2 flex flex-col items-center justify-center
+                        hover:scale-115 transition duration-500 ease-in-out"
+        >
           <div className="w-full flex items-center justify-center">
             <p className="text-6xl mb:text-7xl">
               {info.temperature_2m.toFixed(1)}°
@@ -61,7 +67,10 @@ export default function CurrentWeather(weather: Readonly<CurrentWeather>) {
           </div>
         </div>
 
-        <div className="col-span-3 row-span-2 flex flex-col items-center justify-center">
+        <div
+          className="col-span-3 row-span-2 flex flex-col items-center justify-center 
+                        hover:scale-115 transition duration-500 ease-in-out"
+        >
           <figure className="flex flex-col items-center justify-center">
             <img
               src={getWeatherIcon(info.is_day, info.weather_code)}
@@ -72,11 +81,17 @@ export default function CurrentWeather(weather: Readonly<CurrentWeather>) {
         </div>
 
         <div
-          className="col-span-2 row-span-1 flex flex-row
-               bg-white rounded-2xl shadow-[0_10px_20px_rgba(0,0,0,0.19),0_6px_6px_rgba(0,0,0,0.23)]"
+          className="col-span-2 row-span-1 flex flex-row rounded-bl-2xl
+               bg-white shadow-[0_10px_20px_rgba(0,0,0,0.19),0_6px_6px_rgba(0,0,0,0.23)]"
         >
           <div className="w-1/2 h-full flex items-center justify-center">
-            <p className="text-black text-sm">{info.relative_humidity_2m}%</p>
+            <p className="text-black text-sm">
+              {getDewPoint(
+                info.temperature_2m,
+                info.relative_humidity_2m
+              ).toFixed(2)}
+              %
+            </p>
           </div>
           <div className="w-1/2 h-full flex items-center justify-center">
             <img src={icons.metric.humidity} alt="humidity icon" />
@@ -85,7 +100,7 @@ export default function CurrentWeather(weather: Readonly<CurrentWeather>) {
 
         <div
           className="col-span-2 row-span-1 flex items-center justify-center
-               bg-white rounded-2xl shadow-[0_10px_20px_rgba(0,0,0,0.19),0_6px_6px_rgba(0,0,0,0.23)]"
+               bg-white shadow-[0_10px_20px_rgba(0,0,0,0.19),0_6px_6px_rgba(0,0,0,0.23)]"
         >
           <div className="w-1/2 h-full flex items-center justify-center">
             <p className="text-black text-sm">
@@ -100,8 +115,8 @@ export default function CurrentWeather(weather: Readonly<CurrentWeather>) {
         </div>
 
         <div
-          className="col-span-2 row-span-1 flex items-center justify-center
-               bg-white rounded-2xl shadow-[0_10px_20px_rgba(0,0,0,0.19),0_6px_6px_rgba(0,0,0,0.23)]"
+          className="col-span-2 row-span-1 flex items-center justify-center rounded-br-2xl
+                   bg-white shadow-[0_10px_20px_rgba(0,0,0,0.19),0_6px_6px_rgba(0,0,0,0.23)]"
         >
           <div className="w-1/2 h-full flex items-center justify-center">
             <p className="text-black text-sm">

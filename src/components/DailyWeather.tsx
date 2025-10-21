@@ -17,9 +17,13 @@ export default function DailyWeather(weather: Readonly<DailyWeather>) {
         saturation={1.1}
         elasticity={0.3}
       >
-        <div className="px-8 py-4 text-black text-lg
+        <div
+          className="px-8 py-4 text-black text-lg
         text-shadow-[0_10px_20px_rgba(0,0,0,0.19),0_6px_6px_rgba(0,0,0,0.23)]
-         dark:text-white">Loading...</div>
+         dark:text-white"
+        >
+          Loading...
+        </div>
       </NormalGlass>
     );
   }
@@ -39,11 +43,11 @@ export default function DailyWeather(weather: Readonly<DailyWeather>) {
         <div className="col-span-4 row-span-1 flex flex-row
                         md:col-span-5 md:row-span-4 md:flex-col">
           <div className="w-1/4 h-full flex items-center justify-center
-                          md:w-full md:h-1/8">
+                          md:w-full md:h-1/8 hover:scale-140 transition duration-500 ease-in-out">
             <p className="text-sm md:text-xs ">{new Date(info.time[0]).toLocaleDateString('de-DE')}</p>
           </div>
           <div className="w-1/4 h-full flex items-center justify-center
-                          md:w-full md:h-3/8">
+                          md:w-full md:h-3/8 hover:scale-140 transition duration-500 ease-in-out">
              <img
                 src={getWeatherIcon(1, info.weather_code[0])}
                 alt="wind icon"
@@ -51,7 +55,7 @@ export default function DailyWeather(weather: Readonly<DailyWeather>) {
              />
           </div>
           <div className="w-1/4 h-full flex flex-row
-                          md:w-full md:h-2/8">
+                          md:w-full md:h-2/8 hover:scale-140 transition duration-500 ease-in-out">
               <div className="w-1/2 h-full">
                 <img
                 src={icons.metric.thermoCold}
@@ -59,12 +63,12 @@ export default function DailyWeather(weather: Readonly<DailyWeather>) {
                 className="w-full h-full"
                 />
               </div>
-              <div className="w-1/2 h-full flex items-center justify-center">
+              <div className="w-1/2 h-full flex items-center justify-center ">
               <p className="text-sm md:text-xs">{info.temperature_2m_min[0].toFixed(1)}</p>
               </div>
           </div>
           <div className="w-1/4 h-full flex flex-row
-                          md:w-full md:h-2/8">
+                          md:w-full md:h-2/8 hover:scale-140 transition duration-500 ease-in-out">
               <div className="w-1/2 h-full">
                 <img
                 src={icons.metric.thermoWarm}
@@ -81,8 +85,8 @@ export default function DailyWeather(weather: Readonly<DailyWeather>) {
           return (
             <div
               key={new Date(t).toLocaleDateString()}
-              className="col-span-4 row-span-1 flex flex-row  bg-white rounded-2xl p-2 shadow-[0_0_5px_rgba(0,0,0,0.19),0_4px_6px_rgba(0,0,0,0.23)]
-                         md:col-span-4 md:row-span-2 md:flex-col"
+              className="col-span-4 row-span-1 flex flex-row  bg-white p-2 shadow-[0_0_5px_rgba(0,0,0,0.19),0_4px_6px_rgba(0,0,0,0.23)]
+                         md:col-span-4 md:row-span-2 md:flex-col rounded-2xl"
             >
               <div className="w-1/4 h-full flex items-center justify-center
                               md:w-full md:h-1/8">
