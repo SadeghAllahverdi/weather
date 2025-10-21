@@ -11,6 +11,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { TypeOutline } from "lucide-react";
 ChartJS.register(
   LineElement,
   CategoryScale,
@@ -35,15 +36,19 @@ export default function HourlyWeather(weather: Readonly<HourlyWeather>) {
         saturation={1.1}
         elasticity={0.3}
       >
-        <div className="px-8 py-4 text-dark text-lg dark:text-white
-        text-shadow-[0_10px_20px_rgba(0,0,0,0.19),0_6px_6px_rgba(0,0,0,0.23)]">Loading...</div>
+        <div
+          className="px-8 py-4 text-dark text-lg dark:text-white
+        text-shadow-[0_10px_20px_rgba(0,0,0,0.19),0_6px_6px_rgba(0,0,0,0.23)]"
+        >
+          Loading...
+        </div>
       </NormalGlass>
     );
   }
   const maxTemperature_2m = Math.round(Math.max(...info.temperature_2m) + 1);
   const minTemperature_2m = Math.round(Math.min(...info.temperature_2m) - 1);
-  const max_Humidity = Math.round(Math.max(...info.relative_humidity_2m));
-  const min_Humidity = Math.round(Math.min(...info.relative_humidity_2m));
+  const max_Humidity = Math.round(Math.max(...info.relative_humidity_2m) + 1);
+  const min_Humidity = Math.round(Math.min(...info.relative_humidity_2m) - 1);
   const data = {
     labels: info.time.map((t) =>
       new Date(t).toLocaleString("de-DE", {
@@ -80,22 +85,35 @@ export default function HourlyWeather(weather: Readonly<HourlyWeather>) {
     plugins: {
       legend: {
         display: true,
-        labels: { color: "#E52B50", borderRadius: 4 },
+        labels: {
+          color: "white",
+          borderRadius: 4,
+          font: { size: 14, family: "'Roboto Serif', serif" },
+        },
       },
     },
     scales: {
       temp: {
         min: minTemperature_2m,
         max: maxTemperature_2m,
-        ticks: { color: "rgba(255, 0, 0, 1)" },
+        ticks: {
+          color: "#E52B50",
+          font: { size: 14, family: "'Roboto Serif', serif" },
+        },
       },
       humid: {
         min: min_Humidity,
         max: max_Humidity,
-        ticks: { color: "rgba(0, 4, 255, 1)" },
+        ticks: {
+          color: "#0CAFFF",
+          font: { size: 14, family: "'Roboto Serif', serif" },
+        },
       },
       x: {
-        ticks: { color: "rgba(0, 0, 0, 1)" },
+        ticks: {
+          color: "white",
+          font: { size: 14, family: "'Roboto Serif', serif" },
+        },
       },
     },
     responsive: true,
@@ -111,7 +129,7 @@ export default function HourlyWeather(weather: Readonly<HourlyWeather>) {
       saturation={1.1}
       elasticity={0.3}
     >
-      <div className="w-full h-full p-2">
+      <div className="w-full h-full p-1 md:p-7 hover:scale-105 transition duration-500 ease-in-out">
         {/* <Line data={data} options={options} /> */}
         <Line data={data} options={options} />
       </div>

@@ -88,6 +88,13 @@ export function getWeatherDescription(wcode: number): string {
   return desc.length === 1
     ? desc[0]
     : desc.length === 2
-    ? `${desc[0]} and ${desc[1]}`
-    : `${desc[0]} and ${desc[1]} with ${desc.slice(2).join(" ")}`;
+      ? `${desc[0]} and ${desc[1]}`
+      : `${desc[0]} and ${desc[1]} with ${desc.slice(2).join(" ")}`;
+}
+
+export function getDewPoint(temp: number, humidity: number): number {
+  const a = 17.27;
+  const b = 237.7;
+  const alpha = (a * temp) / (b + temp) + Math.log(humidity / 100);
+  return (b * alpha) / (a - alpha);
 }
