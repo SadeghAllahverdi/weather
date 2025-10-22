@@ -11,6 +11,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { count } from "console";
 ChartJS.register(
   LineElement,
   CategoryScale,
@@ -65,7 +66,7 @@ export default function HourlyWeather(weather: Readonly<HourlyWeather>) {
         borderColor: "#E52B50",
         borderWidth: 3,
         pointRadius: 2,
-        pointHoverBackgroundColor: "rgba(0, 0, 0, 0)",
+        pointHoverBackgroundColor: "#FF69B4 ",
         tension: 0.4,
         fill: false,
         yAxisID: "temp",
@@ -84,10 +85,10 @@ export default function HourlyWeather(weather: Readonly<HourlyWeather>) {
       {
         label: "dew (%)",
         data: info.dew_point_2m,
-        borderColor: "#gray",
+        borderColor: "#FF00FF",
         borderWidth: 3,
         pointRadius: 2,
-        pointHoverBackgroundColor: "black",
+        pointHoverBackgroundColor: "#00FFFF",
         tension: 0.4,
         fill: false,
         yAxisID: "dew",
@@ -111,6 +112,7 @@ export default function HourlyWeather(weather: Readonly<HourlyWeather>) {
         max: maxTemperature_2m,
         ticks: {
           color: "#E52B50",
+          count: 6,
           font: { size: 14, family: "'Roboto Serif', serif" },
         },
       },
@@ -119,6 +121,7 @@ export default function HourlyWeather(weather: Readonly<HourlyWeather>) {
         max: max_Humidity,
         ticks: {
           color: "#0CAFFF",
+          count: 6,
           font: { size: 14, family: "'Roboto Serif', serif" },
         },
       },
@@ -126,7 +129,8 @@ export default function HourlyWeather(weather: Readonly<HourlyWeather>) {
         min: min_Dew,
         max: max_Dew,
         ticks: {
-          color: "#0CAFFF",
+          color: "#FF00FF",
+          count: 6,
           font: { size: 14, family: "'Roboto Serif', serif" },
         },
       },

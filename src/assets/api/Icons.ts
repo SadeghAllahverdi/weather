@@ -93,8 +93,9 @@ export function getWeatherDescription(wcode: number): string {
 }
 
 export function getDewPoint(temp: number, humidity: number): number {
-  const a = 17.27;
-  const b = 237.7;
+  // basically a tempreture at which water in the air condences to drops
+  const a = 17.625;
+  const b = 243.04;
   const alpha = (a * temp) / (b + temp) + Math.log(humidity / 100);
   return (b * alpha) / (a - alpha);
 }

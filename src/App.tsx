@@ -19,7 +19,7 @@ function App() {
       <div
         ref={containerRef}
         className="w-full min-h-screen
-          bg-[url(https://images.hdqwalls.com/wallpapers/mitsubishi-lancer-pixel-art-4k-jm.jpg)]
+          bg-[url(C:\Users\sadeg\OneDrive\Desktop\weather\public\nig.jpg)]
           bg-cover bg-center
           flex flex-col items-center justify-center gap-8 p-8"
       >
