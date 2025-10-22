@@ -19,7 +19,7 @@ function App() {
       <div
         ref={containerRef}
         className="w-full min-h-screen
-          bg-[url(C:\Users\sadeg\OneDrive\Desktop\weather\public\nig.jpg)]
+          bg-[url(https://img.craftpix.net/2022/12/Free-Mountain-Backgrounds-Pixel-Art6.png))]
           bg-cover bg-center
           flex flex-col items-center justify-center gap-8 p-8"
       >
