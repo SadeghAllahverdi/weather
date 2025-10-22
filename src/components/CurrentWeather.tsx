@@ -52,7 +52,7 @@ export default function CurrentWeather(weather: Readonly<CurrentWeather>) {
         >
           <div className="w-full flex items-center justify-center">
             <p className="text-6xl mb:text-7xl">
-              {info.temperature_2m.toFixed(1)}°
+              {info.temperature_2m.toFixed(1)}°C
             </p>
           </div>
           <div className="w-full flex items-center justify-center">
@@ -90,7 +90,7 @@ export default function CurrentWeather(weather: Readonly<CurrentWeather>) {
                 info.temperature_2m,
                 info.relative_humidity_2m
               ).toFixed(2)}
-              %
+              °C
             </p>
           </div>
           <div className="w-1/2 h-full flex items-center justify-center">
