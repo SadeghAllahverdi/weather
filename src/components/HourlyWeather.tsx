@@ -11,7 +11,6 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { count } from "console";
 ChartJS.register(
   LineElement,
   CategoryScale,
