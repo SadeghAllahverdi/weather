@@ -85,7 +85,7 @@ export default function DailyWeather(weather: Readonly<DailyWeather>) {
           return (
             <div
               key={new Date(t).toLocaleDateString()}
-              className="col-span-4 row-span-1 flex flex-row  bg-white p-2 shadow-[0_0_5px_rgba(0,0,0,0.19),0_4px_6px_rgba(0,0,0,0.23)]
+              className="col-span-4 row-span-1 flex flex-row  bg-white dark:bg-gray-800 dark:text-white p-2 shadow-[0_0_5px_rgba(0,0,0,0.19),0_4px_6px_rgba(0,0,0,0.23)]
                          md:col-span-4 md:row-span-2 md:flex-col rounded-2xl"
             >
               <div className="w-1/4 h-full flex items-center justify-center
