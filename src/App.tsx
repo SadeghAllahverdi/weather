@@ -6,7 +6,7 @@ import SearchBar from "./components/SearchBar";
 import CurrentWeather from "./components/CurrentWeather";
 import DailyWeather from "./components/DailyWeather";
 import HourlyWeather from "./components/HourlyWeather";
-import { cityBackgroundImage, getUserIp, ipToCity } from "./assets/api/InitialLocationGuess.ts";
+import { cityBackgroundImage} from "./assets/api/InitialLocationGuess.ts";
 
 export default function App() {
   const [backgroundImageUrl, setBackgroundImageUrl] = useState("/cologne-christmas-market-1600x890.jpg");
@@ -19,24 +19,12 @@ export default function App() {
 
   useEffect(() => {
     if (!weather) {
-      // getUserIp().then((ip) => {
-      //   ipToCity(ip).then((city) => {
-      //     getWeather(city).then((weatherData) => {
-      //       setWeather(weatherData);
-      //     });
-      //     cityBackgroundImage(city).then((newImageUrl) => {
-      //       setBackgroundImageUrl(newImageUrl);
-      //     });
-      //   });
-      // }).catch((err) => {
-        // console.error("Error during initial location guess:", err);
         getWeather("Düsseldorf").then((weatherData) => {
             setWeather(weatherData);
-          });
-          cityBackgroundImage("Düsseldorf").then((newImageUrl) => {
-            setBackgroundImageUrl(newImageUrl);
-          });
-      // });
+        });
+        cityBackgroundImage("Düsseldorf").then((newImageUrl) => {
+          setBackgroundImageUrl(newImageUrl);
+        });
     }
   }, []);
 
