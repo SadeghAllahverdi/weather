@@ -1,0 +1,23 @@
+export async function getUserIp() {
+  const response = await fetch("https://api.ipify.org?format=json");
+  const data = await response.json();
+  return data.ip;
+}
+
+export async function ipToCity(ip: string) {
+  const response = await fetch(`http://ip-api.com/json/${ip}`);
+  const data = await response.json();
+  return data.city;
+}
+
+export async function cityBackgroundImage(city: string) { 
+    const response = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${city}`);
+    const data = await response.json();
+    if (data.originalimage.source) {
+        return data.originalimage.source;
+    } else if (data.thumbnail.source) {
+        return data.thumbnail.source;
+    } else {
+        return "/cologne-christmas-market-1600x890.jpg";
+    }
+}

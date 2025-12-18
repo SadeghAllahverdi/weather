@@ -1,16 +1,23 @@
 import { useState } from "react";
 import { Search } from "lucide-react";
 import LiquidGlass from "liquid-glass-react";
+import { cityBackgroundImage } from "../assets/api/InitialLocationGuess";
 
 // Defining properties
 interface SearchBarProps {
   onSearch?: (cityName: string) => void;
   containerRef?: React.RefObject<HTMLDivElement | null>;
+  setBackgroundImageUrl: (url: string) => void;
 }
 // prettier-ignore
 // SearchBar function
-export default function SearchBar({ onSearch, containerRef}: Readonly<SearchBarProps>) {
+export default function SearchBar({ onSearch, containerRef, setBackgroundImageUrl }: Readonly<SearchBarProps>) {
   const [city, setCity] = useState("");
+  function setBackgroundImageChange() {
+    cityBackgroundImage(city).then((newImageUrl) => {
+      setBackgroundImageUrl(newImageUrl);
+    });
+  }
   return (
     <LiquidGlass
       mouseContainer={containerRef}
@@ -20,7 +27,7 @@ export default function SearchBar({ onSearch, containerRef}: Readonly<SearchBarP
     >
       <button
         type="button"
-        onClick={() => city && onSearch?.(city)}
+        onClick={() => city && onSearch?.(city) && setBackgroundImageChange()}
         className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-600 hover:text-black dark:hover:text-white hover:scale-110 transition-colors"
       >
         <Search className="w-5 h-5" />
@@ -28,7 +35,7 @@ export default function SearchBar({ onSearch, containerRef}: Readonly<SearchBarP
       <input
         value={city}
         onChange={(e) => setCity(e.target.value)}
-        onKeyDown={(e) => e.key === "Enter" && city && onSearch?.(city)}
+        onKeyDown={(e) => e.key === "Enter" && city && onSearch?.(city) && setBackgroundImageChange()}
         className="pl-10 py-2 text-black dark:text-white text-lg rounded-md focus:outline-none"
         type="text"
         placeholder="Search City"
