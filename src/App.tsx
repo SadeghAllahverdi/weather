@@ -19,24 +19,24 @@ export default function App() {
 
   useEffect(() => {
     if (!weather) {
-      getUserIp().then((ip) => {
-        ipToCity(ip).then((city) => {
-          getWeather(city).then((weatherData) => {
-            setWeather(weatherData);
-          });
-          cityBackgroundImage(city).then((newImageUrl) => {
-            setBackgroundImageUrl(newImageUrl);
-          });
-        });
-      }).catch((err) => {
-        console.error("Error during initial location guess:", err);
+      // getUserIp().then((ip) => {
+      //   ipToCity(ip).then((city) => {
+      //     getWeather(city).then((weatherData) => {
+      //       setWeather(weatherData);
+      //     });
+      //     cityBackgroundImage(city).then((newImageUrl) => {
+      //       setBackgroundImageUrl(newImageUrl);
+      //     });
+      //   });
+      // }).catch((err) => {
+        // console.error("Error during initial location guess:", err);
         getWeather("Düsseldorf").then((weatherData) => {
             setWeather(weatherData);
           });
           cityBackgroundImage("Düsseldorf").then((newImageUrl) => {
             setBackgroundImageUrl(newImageUrl);
           });
-      });
+      // });
     }
   }, []);
 
