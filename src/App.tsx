@@ -28,6 +28,14 @@ export default function App() {
             setBackgroundImageUrl(newImageUrl);
           });
         });
+      }).catch((err) => {
+        console.error("Error during initial location guess:", err);
+        getWeather("Düsseldorf").then((weatherData) => {
+            setWeather(weatherData);
+          });
+          cityBackgroundImage("Düsseldorf").then((newImageUrl) => {
+            setBackgroundImageUrl(newImageUrl);
+          });
       });
     }
   }, []);
